@@ -1,0 +1,61 @@
+{
+	"root": true,
+	"ignorePatterns": ["projects/**/*", "src/app/**/*.spec.ts"],
+	"overrides": [
+		{
+			"files": ["*.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.json"],
+				"createDefaultProgram": true
+			},
+			"extends": [
+				"eslint:recommended",
+				"plugin:prettier/recommended",
+				"plugin:@angular-eslint/recommended",
+				"plugin:@typescript-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates"
+			],
+			"plugins": ["simple-import-sort", "import"],
+			"rules": {
+				"@angular-eslint/directive-selector": [
+					"error",
+					{
+						"type": "attribute",
+						"prefix": "ims",
+						"style": "camelCase"
+					}
+				],
+				"@angular-eslint/component-selector": [
+					"error",
+					{
+						"type": "element",
+						"prefix": "ims",
+						"style": "kebab-case"
+					}
+				],
+				"@typescript-eslint/unbound-method": [
+					"error",
+					{
+						"ignoreStatic": true
+					}
+				],
+				"@typescript-eslint/explicit-function-return-type": ["error"],
+				"@typescript-eslint/no-useless-constructor": ["error"],
+				"simple-import-sort/imports": "error",
+				"simple-import-sort/exports": "error",
+				"import/first": "error",
+				"import/newline-after-import": "error",
+				"import/no-duplicates": "error"
+			}
+		},
+		{
+			"files": ["*.html"],
+			"extends": [
+				"plugin:@angular-eslint/template/recommended",
+				"plugin:@angular-eslint/template/accessibility",
+				"plugin:prettier/recommended"
+			],
+			"rules": {}
+		}
+	]
+}
