@@ -1,0 +1,28 @@
+<mat-selection-list class="flex flex-col">
+	<div matSubheader>
+		<h1 class="text-2xl text-center">IMS</h1>
+	</div>
+
+	<button mat-list-item class="text-left font-semibold">
+		<a
+			[routerLink]="['/']"
+			routerLinkActive="activebutton"
+			ariaCurrentWhenActive="page"
+			class="text-gray-300"
+			>{{ 'D' }}</a
+		>
+	</button>
+
+	<div matSubheader class="text-left">API</div>
+	@for (link of links; track link) {
+	<button mat-list-item class="text-left font-semibold">
+		<a
+			[routerLink]="[link.href]"
+			routerLinkActive="activebutton"
+			ariaCurrentWhenActive="page"
+			class="text-gray-300"
+			>{{ link.label }}</a
+		>
+	</button>
+	}
+</mat-selection-list>

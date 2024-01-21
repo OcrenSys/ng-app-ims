@@ -1,0 +1,41 @@
+<mat-selection-list class="flex flex-col">
+	<div matSubheader>
+		<div class="flex flex-col items-center">
+			<img class="w-32 h-32 rounded-full mb-2" [src]="user.avatar" alt="" />
+			<div class="font-medium dark:text-white text-center">
+				<p class="text-xl">{{ user.username }}</p>
+				<div class="text-md text-gray-400 dark:text-gray-400 mt-1">
+					{{ user.email }}
+				</div>
+				<div
+					class="text-md font-semibold text-gray-400 dark:text-gray-400 mt-1"
+				>
+					{{ user.role }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<button mat-list-item class="text-left font-semibold">
+		<a
+			[routerLink]="['/']"
+			routerLinkActive="activebutton"
+			ariaCurrentWhenActive="page"
+			class="text-gray-300"
+			>{{ 'Dashboard' }}</a
+		>
+	</button>
+
+	<div matSubheader class="text-left">API Resources</div>
+	@for (link of links; track link) {
+	<button mat-list-item class="text-left font-semibold">
+		<a
+			[routerLink]="[link.href]"
+			routerLinkActive="activebutton"
+			ariaCurrentWhenActive="page"
+			class="text-gray-300"
+			>{{ link.label }}</a
+		>
+	</button>
+	}
+</mat-selection-list>
