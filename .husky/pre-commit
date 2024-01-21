@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # This command format all the documents
-npm run format && ng lint --fix  && git add .
+# npm run format && ng lint --fix  && git add .
 
 # This command format only the modified documents
 npx pretty-quick --pattern "src/**/*.*(ts|json|html|scss)" --staged  && ng lint --fix
