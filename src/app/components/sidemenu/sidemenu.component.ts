@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 
+import { Menu } from '../../common/types/menu.type';
+
 @Component({
 	selector: 'ims-side-menu',
 	standalone: true,
@@ -10,31 +12,92 @@ import { RouterModule } from '@angular/router';
 	imports: [MatListModule, RouterModule]
 })
 export class SideMenuComponent {
-	protected links = [
+	protected menu: Menu[] = [
 		{
-			label: 'Comics',
-			isActive: false,
-			href: 'comics'
+			label: 'Dashboard',
+			href: 'dashboard',
+			menu: [
+				{
+					label: 'Sales',
+					isActive: false,
+					href: 'sales'
+				},
+				{
+					label: 'Orders',
+					isActive: false,
+					href: 'orders'
+				}
+			]
 		},
 		{
-			label: 'Characters',
-			isActive: false,
-			href: 'characters'
+			label: 'Gestion',
+			href: 'gestion',
+			menu: [
+				{
+					label: 'Inventory',
+					href: 'inventory',
+					menu: [
+						{
+							label: 'Products and Services',
+							href: 'products-services'
+						},
+						{
+							label: 'Categories',
+							href: 'categories'
+						}
+					]
+				},
+				{
+					label: 'Contacts',
+					href: 'contacts',
+					menu: [
+						{
+							label: 'Customers',
+							href: 'customers'
+						},
+
+						{
+							label: 'prospects',
+							href: 'prospetcs'
+						},
+						{
+							label: 'suppliers',
+							href: 'suppliers'
+						}
+					]
+				},
+				{
+					label: 'Sales',
+					isActive: false,
+					href: 'sales',
+					menu: [
+						{
+							label: 'Invoices',
+							href: 'invoices'
+						},
+						{
+							label: 'Credits',
+							href: 'credits'
+						}
+					]
+				}
+			]
 		},
 		{
-			label: 'Stories',
-			isActive: false,
-			href: 'stories'
-		},
-		{
-			label: 'Events',
-			isActive: false,
-			href: 'events'
-		},
-		{
-			label: 'Creators',
-			isActive: false,
-			href: 'creators'
+			label: 'Settings',
+			href: 'settings',
+			menu: [
+				{
+					label: 'Users',
+					isActive: false,
+					href: 'users'
+				},
+				{
+					label: 'Configurations',
+					isActive: false,
+					href: 'configurations'
+				}
+			]
 		}
 	];
 

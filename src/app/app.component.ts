@@ -1,4 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
 import {
 	ChangeDetectorRef,
 	Component,
@@ -16,6 +17,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
 import { SideMenuCompactComponent } from './components/sidemenu-compact/sidemenu-compact.component';
 
@@ -23,6 +26,7 @@ import { SideMenuCompactComponent } from './components/sidemenu-compact/sidemenu
 	selector: 'ims-root',
 	standalone: true,
 	imports: [
+		CommonModule,
 		RouterOutlet,
 		MatSidenavModule,
 		MatButtonModule,
@@ -31,10 +35,12 @@ import { SideMenuCompactComponent } from './components/sidemenu-compact/sidemenu
 		MatListModule,
 		MatIconModule,
 		SideMenuComponent,
-		SideMenuCompactComponent
+		SideMenuCompactComponent,
+		NavbarComponent,
+		BreadcrumbsComponent
 	],
 	templateUrl: './app.component.html',
-	styleUrl: './app.component.scss'
+	styleUrls: ['./app.component.scss', './app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
 	protected device: WritableSignal<'mobile' | 'desktop'> = signal<
