@@ -4,7 +4,6 @@ import {
 	ChangeDetectorRef,
 	Component,
 	OnDestroy,
-	OnInit,
 	signal,
 	WritableSignal
 } from '@angular/core';
@@ -15,7 +14,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
-import { initFlowbite } from 'flowbite';
 
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -42,10 +40,11 @@ import { SideMenuCompactComponent } from './components/sidemenu-compact/sidemenu
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss', './app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnDestroy {
 	protected device: WritableSignal<'mobile' | 'desktop'> = signal<
 		'mobile' | 'desktop'
 	>('desktop');
+	protected show: WritableSignal<boolean> = signal<boolean>(true);
 	protected showMainDrawer: WritableSignal<boolean> = signal<boolean>(true);
 
 	protected mobileQuery!: MediaQueryList;
@@ -68,10 +67,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	protected closedStart(): void {
 		this.showMainDrawer.set(false);
-	}
-
-	ngOnInit(): void {
-		initFlowbite();
 	}
 
 	ngOnDestroy(): void {

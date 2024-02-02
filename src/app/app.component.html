@@ -1,40 +1,35 @@
+<div class="flex flex-row">
+	<div class="w-full">
+		<ims-navbar (toggle)="toggle()" />
+	</div>
+</div>
+
 <mat-drawer-container
 	autosize
+	class="h-screen w-full mt-14"
 	[hasBackdrop]="mobileQuery.matches ? true : false"
-	class="h-screen w-full"
 >
-	@if(showMainDrawer()){
 	<mat-drawer
 		#drawer
-		opened
+		[opened]="device() === 'desktop' ? true : showMainDrawer()"
 		(closedStart)="closedStart()"
 		[mode]="mobileQuery.matches ? 'over' : 'side'"
-		class="h-screen w-72 pl-4"
+		class="h-screen first-letter:pl-4 group/item"
 	>
 		<div class="flex flex-col">
-			<ims-side-menu />
+			<ims-side-menu
+				[ngClass]="{
+					'hidden group-hover/item:block':
+						device() === 'desktop' && showMainDrawer()
+				}"
+			/>
+			@if(showMainDrawer() && device() === 'desktop' ){
+			<ims-side-menu-compact class="visible group-hover/item:invisible w-16" />
+			}
 		</div>
 	</mat-drawer>
-	} @if(!showMainDrawer() && device() === 'desktop' ){
-	<mat-drawer
-		#drawerCompact
-		opened
-		[mode]="'side'"
-		class="h-screen w-16 px-0 bg-red-800"
-	>
-		<div class="flex flex-col">
-			<ims-side-menu-compact />
-		</div>
-	</mat-drawer>
-	}
 
 	<mat-drawer-content>
-		<div class="flex flex-row">
-			<div class="w-full">
-				<ims-navbar (toggle)="toggle()" />
-			</div>
-		</div>
-
 		<main class="p-4 h-full" #container>
 			<ims-breadcrumbs />
 			<router-outlet></router-outlet>
