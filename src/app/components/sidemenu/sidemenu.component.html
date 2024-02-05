@@ -45,7 +45,7 @@
 						@for(i of item.menu; track i.label){
 						<li>
 							<a
-								href="#"
+								[routerLink]="i.href"
 								class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 								>{{ i.label }}</a
 							>
@@ -57,7 +57,7 @@
 				}@else{
 				<li>
 					<a
-						href="#"
+						[routerLink]="item.href"
 						class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
 					>
 						<span class="ms-3">{{ item.label }}</span>

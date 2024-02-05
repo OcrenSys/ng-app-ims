@@ -1,32 +1,36 @@
-const Route = {
-	products: 'products',
-	customers: 'customers',
-	invoices: 'invoices',
-	credits: 'credits'
+const Routes = {
+	admin: 'admin',
+	guest: 'guest',
+	inventory: 'inventory',
+	customers: 'contacts/customers',
+	prospects: 'contacts/prospects',
+	suppliers: 'contacts/suppliers'
 };
-export const Routes = {
-	products: {
-		list: (): string => `/${Route.products}`,
-		details: (id: string): string => `${Route.products}/${id}`,
-		create: (): string => `${Route.products}/create`,
-		update: (id: string): string => `${Route.products}/update/${id}`
+export const Route = {
+	admin: {
+		root: (): string => ``,
+		contacts: {
+			customers: {
+				list: (): string => `${Routes.customers}`,
+				details: (id: string): string => `${Routes.customers}/${id}`,
+				create: (): string => `${Routes.customers}/create`,
+				update: (id: string): string => `${Routes.customers}/update/${id}`
+			},
+			prospects: {
+				list: (): string => `${Routes.prospects}`,
+				details: (id: string): string => `${Routes.prospects}/${id}`,
+				create: (): string => `${Routes.prospects}/create`,
+				update: (id: string): string => `${Routes.prospects}/update/${id}`
+			},
+			suppliers: {
+				list: (): string => `${Routes.suppliers}`,
+				details: (id: string): string => `${Routes.suppliers}/${id}`,
+				create: (): string => `${Routes.suppliers}/create`,
+				update: (id: string): string => `${Routes.suppliers}/update/${id}`
+			}
+		}
 	},
-	customers: {
-		list: (): string => `/${Route.customers}`,
-		details: (id: string): string => `${Route.customers}/${id}`,
-		create: (): string => `${Route.customers}/create`,
-		update: (id: string): string => `${Route.customers}/update/${id}`
-	},
-	invoices: {
-		list: (): string => `/${Route.invoices}`,
-		details: (id: string): string => `${Route.invoices}/${id}`,
-		create: (): string => `${Route.invoices}/create`,
-		update: (id: string): string => `${Route.invoices}/update/${id}`
-	},
-	credits: {
-		list: (): string => `/${Route.credits}`,
-		details: (id: string): string => `${Route.credits}/${id}`,
-		create: (): string => `${Route.credits}/create`,
-		update: (id: string): string => `${Route.credits}/update/${id}`
+	gues: {
+		welcome: (): string => `/welcome`
 	}
 };

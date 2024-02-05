@@ -57,56 +57,50 @@ export class SideMenuCompactComponent {
 			]
 		},
 		{
-			label: 'Gestion',
-			href: 'gestion',
+			label: 'Inventory',
+			href: 'inventory',
 			menu: [
 				{
-					label: 'Inventory',
-					href: 'inventory',
-					menu: [
-						{
-							label: 'Products and Services',
-							href: 'products-services'
-						},
-						{
-							label: 'Categories',
-							href: 'categories'
-						}
-					]
+					label: 'Products and Services',
+					href: 'products-services'
 				},
 				{
-					label: 'Contacts',
-					href: 'contacts',
-					menu: [
-						{
-							label: 'Customers',
-							href: 'customers'
-						},
+					label: 'Categories',
+					href: 'categories'
+				}
+			]
+		},
+		{
+			label: 'Contacts',
+			href: 'contacts',
+			menu: [
+				{
+					label: 'Customers',
+					href: 'customers'
+				},
 
-						{
-							label: 'prospects',
-							href: 'prospetcs'
-						},
-						{
-							label: 'suppliers',
-							href: 'suppliers'
-						}
-					]
+				{
+					label: 'prospects',
+					href: 'prospetcs'
 				},
 				{
-					label: 'Sales',
-					isActive: false,
-					href: 'sales',
-					menu: [
-						{
-							label: 'Invoices',
-							href: 'invoices'
-						},
-						{
-							label: 'Credits',
-							href: 'credits'
-						}
-					]
+					label: 'suppliers',
+					href: 'suppliers'
+				}
+			]
+		},
+		{
+			label: 'Sales',
+			isActive: false,
+			href: 'sales',
+			menu: [
+				{
+					label: 'Invoices',
+					href: 'invoices'
+				},
+				{
+					label: 'Credits',
+					href: 'credits'
 				}
 			]
 		},

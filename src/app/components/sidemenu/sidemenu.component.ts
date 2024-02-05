@@ -3,6 +3,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 
 import { Menu } from '../../common/types/menu.type';
+import { Route } from '../../shared/routes/routes';
 
 @Component({
 	selector: 'ims-side-menu',
@@ -30,56 +31,50 @@ export class SideMenuComponent {
 			]
 		},
 		{
-			label: 'Gestion',
-			href: 'gestion',
+			label: 'Inventory',
+			href: 'inventory',
 			menu: [
 				{
-					label: 'Inventory',
-					href: 'inventory',
-					menu: [
-						{
-							label: 'Products and Services',
-							href: 'products-services'
-						},
-						{
-							label: 'Categories',
-							href: 'categories'
-						}
-					]
+					label: 'Products and Services',
+					href: 'products-services'
 				},
 				{
-					label: 'Contacts',
-					href: 'contacts',
-					menu: [
-						{
-							label: 'Customers',
-							href: 'customers'
-						},
+					label: 'Categories',
+					href: 'categories'
+				}
+			]
+		},
+		{
+			label: 'Contacts',
+			href: 'contacts',
+			menu: [
+				{
+					label: 'Customers',
+					href: Route.admin.contacts.customers.list()
+				},
 
-						{
-							label: 'prospects',
-							href: 'prospetcs'
-						},
-						{
-							label: 'suppliers',
-							href: 'suppliers'
-						}
-					]
+				{
+					label: 'prospects',
+					href: Route.admin.contacts.prospects.list()
 				},
 				{
-					label: 'Sales',
-					isActive: false,
-					href: 'sales',
-					menu: [
-						{
-							label: 'Invoices',
-							href: 'invoices'
-						},
-						{
-							label: 'Credits',
-							href: 'credits'
-						}
-					]
+					label: 'suppliers',
+					href: Route.admin.contacts.suppliers.list()
+				}
+			]
+		},
+		{
+			label: 'Sales',
+			isActive: false,
+			href: 'sales',
+			menu: [
+				{
+					label: 'Invoices',
+					href: 'invoices'
+				},
+				{
+					label: 'Credits',
+					href: 'credits'
 				}
 			]
 		},
