@@ -30,9 +30,11 @@
 	</mat-drawer>
 
 	<mat-drawer-content>
-		<main class="p-4 h-full" #container>
+		<main class="p-4 h-full bg-gray-100" #container>
 			<ims-breadcrumbs />
-			<router-outlet></router-outlet>
+			<div class="p-4 mt-4 bg-white rounded-lg">
+				<router-outlet></router-outlet>
+			</div>
 		</main>
 	</mat-drawer-content>
 </mat-drawer-container>
