@@ -3,5 +3,6 @@ export type Menu = {
 	isActive?: boolean;
 	href?: string;
 	menu?: Menu[];
-	icon?: HTMLElement | unknown;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	icon?: any;
 };

@@ -1,32 +1,52 @@
-const Route = {
-	products: 'products',
-	customers: 'customers',
-	invoices: 'invoices',
-	credits: 'credits'
+const Routes = {
+	dashboarSales: 'dashboard/sales',
+	dashboarOrders: 'dashboard/orders',
+
+	inventoryProducts: 'inventory/products',
+	inventoryServices: 'inventory/services',
+	inventoryCategories: 'inventory/categories',
+
+	contactsCustomers: 'contacts/customers',
+	contactsProspects: 'contacts/prospects',
+	contactsSuppliers: 'contacts/suppliers',
+
+	preferencesUsers: 'preferences/users',
+	preferencesSettings: 'preferences/settings'
 };
-export const Routes = {
-	products: {
-		list: (): string => `/${Route.products}`,
-		details: (id: string): string => `${Route.products}/${id}`,
-		create: (): string => `${Route.products}/create`,
-		update: (id: string): string => `${Route.products}/update/${id}`
+export const Route = {
+	admin: {
+		dashboard: {
+			sales: (): string => `${Routes.dashboarSales}`,
+			orders: (): string => `${Routes.dashboarOrders}`
+		},
+		inventory: {
+			products: (): string => `${Routes.inventoryProducts}`,
+			services: (): string => `${Routes.inventoryServices}`,
+			categories: (): string => `${Routes.inventoryCategories}`
+		},
+		contacts: {
+			customers: {
+				list: (): string => `${Routes.contactsCustomers}`,
+				details: (id: string): string => `${Routes.contactsCustomers}/${id}`,
+				create: (): string => `${Routes.contactsCustomers}/create`,
+				update: (id: string): string =>
+					`${Routes.contactsCustomers}/update/${id}`
+			},
+			prospects: {
+				list: (): string => `${Routes.contactsProspects}`
+			},
+			suppliers: {
+				list: (): string => `${Routes.contactsSuppliers}`
+			}
+		},
+		preferences: {
+			users: (): string => `${Routes.preferencesUsers}`,
+			settings: (): string => `${Routes.preferencesSettings}`
+		}
 	},
-	customers: {
-		list: (): string => `/${Route.customers}`,
-		details: (id: string): string => `${Route.customers}/${id}`,
-		create: (): string => `${Route.customers}/create`,
-		update: (id: string): string => `${Route.customers}/update/${id}`
+	gues: {
+		welcome: (): string => `/welcome`
 	},
-	invoices: {
-		list: (): string => `/${Route.invoices}`,
-		details: (id: string): string => `${Route.invoices}/${id}`,
-		create: (): string => `${Route.invoices}/create`,
-		update: (id: string): string => `${Route.invoices}/update/${id}`
-	},
-	credits: {
-		list: (): string => `/${Route.credits}`,
-		details: (id: string): string => `${Route.credits}/${id}`,
-		create: (): string => `${Route.credits}/create`,
-		update: (id: string): string => `${Route.credits}/update/${id}`
-	}
+
+	login: (): string => `/login`
 };

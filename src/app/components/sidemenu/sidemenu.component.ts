@@ -1,105 +1,20 @@
 import { Component } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { Menu } from '../../common/types/menu.type';
+import { MenuSidebar } from '../../shared/routes/menu.sidebar';
 
 @Component({
 	selector: 'ims-side-menu',
 	standalone: true,
 	templateUrl: './sidemenu.component.html',
 	styleUrl: './sidemenu.component.css',
-	imports: [MatListModule, RouterModule]
+	imports: [MatListModule, RouterModule, FontAwesomeModule]
 })
 export class SideMenuComponent {
-	protected menu: Menu[] = [
-		{
-			label: 'Dashboard',
-			href: 'dashboard',
-			menu: [
-				{
-					label: 'Sales',
-					isActive: false,
-					href: 'sales'
-				},
-				{
-					label: 'Orders',
-					isActive: false,
-					href: 'orders'
-				}
-			]
-		},
-		{
-			label: 'Gestion',
-			href: 'gestion',
-			menu: [
-				{
-					label: 'Inventory',
-					href: 'inventory',
-					menu: [
-						{
-							label: 'Products and Services',
-							href: 'products-services'
-						},
-						{
-							label: 'Categories',
-							href: 'categories'
-						}
-					]
-				},
-				{
-					label: 'Contacts',
-					href: 'contacts',
-					menu: [
-						{
-							label: 'Customers',
-							href: 'customers'
-						},
-
-						{
-							label: 'prospects',
-							href: 'prospetcs'
-						},
-						{
-							label: 'suppliers',
-							href: 'suppliers'
-						}
-					]
-				},
-				{
-					label: 'Sales',
-					isActive: false,
-					href: 'sales',
-					menu: [
-						{
-							label: 'Invoices',
-							href: 'invoices'
-						},
-						{
-							label: 'Credits',
-							href: 'credits'
-						}
-					]
-				}
-			]
-		},
-		{
-			label: 'Settings',
-			href: 'settings',
-			menu: [
-				{
-					label: 'Users',
-					isActive: false,
-					href: 'users'
-				},
-				{
-					label: 'Configurations',
-					isActive: false,
-					href: 'configurations'
-				}
-			]
-		}
-	];
+	protected menu: Menu[] = MenuSidebar;
 
 	protected user = {
 		avatar:
