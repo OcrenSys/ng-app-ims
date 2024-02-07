@@ -6,7 +6,8 @@ import { Route } from './shared/routes/routes';
 
 export const routes: Routes = [
 	{
-		path: 'login',
+		path: '',
+		title: 'IMS | Login',
 		pathMatch: 'full',
 		loadComponent: () =>
 			import(
@@ -15,7 +16,9 @@ export const routes: Routes = [
 			).then((module) => module.LoginComponent)
 	},
 	{
-		path: '',
+		path: 'welcome',
+		title: 'IMS | Welcome',
+
 		component: GuesLayoutComponent,
 		children: [
 			{
@@ -30,6 +33,8 @@ export const routes: Routes = [
 	},
 	{
 		path: 'admin',
+		title: 'IMS | Admin Panel',
+
 		component: AdminLayoutComponent,
 		children: [
 			{
