@@ -7,6 +7,7 @@ import {
 	IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
 
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { FormControlService } from '../../../services/formControl/form-control.service';
 import { FieldBase, FieldTypes } from '../../../shared/forms/field.base';
 import { FieldComponent } from '../../ui/field/field.component';
@@ -32,7 +33,10 @@ export class SigninFormComponent implements OnInit {
 	protected loading: boolean = false;
 	protected icon: IconDefinition = faPaperPlane;
 
-	constructor(private _formControlService: FormControlService) {}
+	constructor(
+		private _formControlService: FormControlService,
+		private readonly _authenticationService: AuthenticationService
+	) {}
 
 	ngOnInit(): void {
 		this.form = this._formControlService.toFormGroup(
@@ -40,12 +44,12 @@ export class SigninFormComponent implements OnInit {
 		);
 	}
 
-	onSubmit($event?: Event): void {
-		if ($event) $event.preventDefault();
-
+	onSubmit(): void {
+		console.log(this.form.value);
 		this.loading = true;
-		setTimeout(() => {
-			this.loading = false;
-		}, 5000);
+		this._authenticationService.signIn(
+			this.form.get('email')?.value,
+			this.form.get('password')?.value
+		);
 	}
 }
