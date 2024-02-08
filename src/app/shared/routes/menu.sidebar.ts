@@ -5,7 +5,7 @@ import {
 	faGear
 } from '@fortawesome/free-solid-svg-icons';
 
-import { Menu } from '../../common/types/menu.type';
+import { Menu } from '../../common/types/menu/menu.type';
 import { Route } from './routes';
 
 export const MenuSidebar: Menu[] = [

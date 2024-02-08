@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent } from './pages/layouts/admin-layout/admin-layout.component';
-import { GuesLayoutComponent } from './pages/layouts/gues-layout/gues-layout.component';
+import { AdminLayoutComponent } from './features/layouts/admin-layout/admin-layout.component';
+import { GuesLayoutComponent } from './features/layouts/gues-layout/gues-layout.component';
 import { Route } from './shared/routes/routes';
 
 export const routes: Routes = [
@@ -12,7 +12,7 @@ export const routes: Routes = [
 		loadComponent: () =>
 			import(
 				/* webpackChunkName: '__Chunk__LoginComponent__' */
-				'./pages/login/login.component'
+				'./features/login/login.component'
 			).then((module) => module.LoginComponent)
 	},
 	{
@@ -26,7 +26,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__WelcomeComponent__' */
-						'./pages/welcome/welcome.component'
+						'./features/welcome/welcome.component'
 					).then((module) => module.WelcomeComponent)
 			}
 		]
@@ -42,7 +42,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__SalesComponent__' */
-						'./pages/admin/dashboards/sales/sales.component'
+						'./features/admin/dashboards/sales/sales.component'
 					).then((module) => module.SalesComponent)
 			},
 			{
@@ -50,7 +50,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__OrdersComponent__' */
-						'./pages/admin/dashboards/orders/orders.component'
+						'./features/admin/dashboards/orders/orders.component'
 					).then((module) => module.OrdersComponent)
 			},
 			{
@@ -58,7 +58,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__ProductListComponent__' */
-						'./pages/admin/inventory/products/list/list.component'
+						'./features/admin/inventory/products/list/list.component'
 					).then((module) => module.ListComponent)
 			},
 			{
@@ -66,7 +66,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__ServicesListComponent__' */
-						'./pages/admin/inventory/services/list/list.component'
+						'./features/admin/inventory/services/list/list.component'
 					).then((module) => module.ListComponent)
 			},
 			{
@@ -74,7 +74,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__CategoriesListComponent__' */
-						'./pages/admin/inventory/categories/list/list.component'
+						'./features/admin/inventory/categories/list/list.component'
 					).then((module) => module.ListComponent)
 			},
 			{
@@ -82,7 +82,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__CustomersComponent__' */
-						'./pages/admin/contacts/customers/customers.component'
+						'./features/admin/contacts/customers/customers.component'
 					).then((module) => module.CustomersComponent)
 			},
 			{
@@ -90,7 +90,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__ProspectsComponent__' */
-						'./pages/admin/contacts/prospects/prospects.component'
+						'./features/admin/contacts/prospects/prospects.component'
 					).then((module) => module.ProspectsComponent)
 			},
 			{
@@ -98,7 +98,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__SuppliersComponent__' */
-						'./pages/admin/contacts/suppliers/suppliers.component'
+						'./features/admin/contacts/suppliers/suppliers.component'
 					).then((module) => module.SuppliersComponent)
 			},
 			{
@@ -106,7 +106,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__UsersComponent__' */
-						'./pages/admin/preferences/users/users.component'
+						'./features/admin/preferences/users/users.component'
 					).then((module) => module.UsersComponent)
 			},
 			{
@@ -114,7 +114,7 @@ export const routes: Routes = [
 				loadComponent: () =>
 					import(
 						/* webpackChunkName: '__Chunk__SettingsComponent__' */
-						'./pages/admin/preferences/settings/settings.component'
+						'./features/admin/preferences/settings/settings.component'
 					).then((module) => module.SettingsComponent)
 			}
 		]

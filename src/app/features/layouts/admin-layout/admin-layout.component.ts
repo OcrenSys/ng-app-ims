@@ -15,13 +15,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 
-import { BreadcrumbsComponent } from './shared/components/breadcrumbs/breadcrumbs.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { SideMenuComponent } from './shared/components/sidemenu/sidemenu.component';
-import { SideMenuCompactComponent } from './shared/components/sidemenu-compact/sidemenu-compact.component';
+import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs.component';
+import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
+import { SideMenuComponent } from '../../../shared/components/sidemenu/sidemenu.component';
+import { SideMenuCompactComponent } from '../../../shared/components/sidemenu-compact/sidemenu-compact.component';
 
 @Component({
-	selector: 'ims-root',
+	selector: 'ims-admin-layout',
 	standalone: true,
 	imports: [
 		CommonModule,
@@ -37,10 +37,10 @@ import { SideMenuCompactComponent } from './shared/components/sidemenu-compact/s
 		NavbarComponent,
 		BreadcrumbsComponent
 	],
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss', './app.component.css']
+	templateUrl: './admin-layout.component.html',
+	styleUrls: ['./admin-layout.component.sass', './admin-layout.component.css']
 })
-export class AppComponent implements OnDestroy {
+export class AdminLayoutComponent implements OnDestroy {
 	protected device: WritableSignal<'mobile' | 'desktop'> = signal<
 		'mobile' | 'desktop'
 	>('desktop');
