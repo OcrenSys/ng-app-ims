@@ -27,7 +27,7 @@ import { Component, Input } from '@angular/core';
 	`
 })
 export class IsotipoComponent {
-	@Input() id? = 'eeaasdas';
+	@Input() id? = '_isotipo_';
 	@Input() class? = 'mx-auto w-16';
 	@Input() fill? = '#000000';
 	@Input() style? = 'fill: #000000; fill-rule: nonzero';

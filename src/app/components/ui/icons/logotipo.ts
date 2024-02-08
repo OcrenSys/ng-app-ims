@@ -40,7 +40,7 @@ import { Component, Input } from '@angular/core';
 	`
 })
 export class LogotipoComponent {
-	@Input() id? = 'aaefcbfe';
+	@Input() id? = '_logotipo_';
 	@Input() class? = 'mx-auto w-32';
 	@Input() fill? = '#000000';
 	@Input() style? = 'fill: #000000; fill-rule: nonzero';
