@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { Menu } from '../../../common/types/menu/menu.type';
-import { MenuSidebar } from '../../routes/menu.sidebar';
+import { MenuSidebar } from '../../../shared/routes/menu.sidebar';
 
 @Component({
 	selector: 'ims-side-menu-compact',

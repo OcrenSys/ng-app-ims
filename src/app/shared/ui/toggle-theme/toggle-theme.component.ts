@@ -16,7 +16,7 @@ export class ToggleThemeComponent implements OnInit, OnDestroy {
 	constructor(readonly themeService: ThemeService) {}
 
 	ngOnInit(): void {
-		if (localStorage) {
+		if (localStorage !== undefined) {
 			if (
 				localStorage.getItem('color-theme') === 'dark' ||
 				(!('color-theme' in localStorage) &&

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
+import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { ToggleThemeComponent } from '../../ui/toggle-theme/toggle-theme.component';
 
 @Component({
@@ -11,6 +12,7 @@ import { ToggleThemeComponent } from '../../ui/toggle-theme/toggle-theme.compone
 	styleUrl: './navbar.component.sass'
 })
 export class NavbarComponent {
+	authService = inject(AuthenticationService);
 	@Output() toggle: EventEmitter<undefined> = new EventEmitter();
 
 	onToggle(): void {
@@ -20,15 +22,24 @@ export class NavbarComponent {
 	protected menu = [
 		{
 			label: 'Dashboard',
-			href: '/'
+			href: '/dashboard',
+			action: (): void => {
+				console.log('dashboard');
+			}
 		},
 		{
 			label: 'Configuraciones',
-			href: '/settings'
+			href: '/settings',
+			action: (): void => {
+				console.log('settings');
+			}
 		},
 		{
 			label: 'Cerrar Sesion',
-			href: '/logout'
+			href: '/logout',
+			action: (): void => {
+				this.authService.signOut();
+			}
 		}
 	];
 	protected user = {

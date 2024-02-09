@@ -11,17 +11,25 @@ import {
 	providedIn: 'root'
 })
 export class AuthenticationService {
-	// auth = getAuth();
-
 	constructor(private readonly auth: Auth) {}
 
-	signIn(email: string, password: string): void {
+	public isLoggedIn(): Promise<boolean> {
+		return new Promise((resolve: any) => {
+			this.auth.onAuthStateChanged((user: any) => {
+				user ? resolve(true) : resolve(false);
+			});
+		});
+	}
+
+	public signOut(): void {
+		this.auth.signOut();
+	}
+
+	public signIn(email: string, password: string): void {
 		signInWithEmailAndPassword(this.auth, email, password)
 			.then((userCredential) => {
-				// Signed in
 				const user = userCredential.user;
 				console.log(user);
-				// ...
 			})
 			.catch((error) => {
 				console.log('error code: ', error.code);
@@ -29,18 +37,15 @@ export class AuthenticationService {
 			});
 	}
 
-	signUp(email: string, password: string): void {
+	public signUp(email: string, password: string): void {
 		createUserWithEmailAndPassword(this.auth, email, password)
 			.then((userCredential) => {
-				// Signed up
 				const user = userCredential.user;
 				console.log(user);
-				// ...
 			})
 			.catch((error) => {
 				console.log('error code: ', error.code);
 				console.log('error code: ', error.message);
-				// ..
 			});
 	}
 }
