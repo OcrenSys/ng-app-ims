@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -11,7 +16,16 @@ import { MenuSidebar } from '../../routes/menu.sidebar';
 	standalone: true,
 	templateUrl: './sidemenu.component.html',
 	styleUrl: './sidemenu.component.css',
-	imports: [MatListModule, RouterModule, FontAwesomeModule]
+	imports: [
+		MatListModule,
+		MatExpansionModule,
+		MatButtonModule,
+		MatSidenavModule,
+		MatToolbarModule,
+		MatIconModule,
+		RouterModule,
+		FontAwesomeModule
+	]
 })
 export class SideMenuComponent {
 	protected menu: Menu[] = MenuSidebar;

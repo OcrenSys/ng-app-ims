@@ -22,7 +22,7 @@ export const Route = {
 	},
 	admin: {
 		root: (): string => Routes.admin,
-		default: (): string => `${Routes.admin}`,
+		default: (): string => `${Routes.admin}/${Routes.dashboarSales}`,
 		dashboard: {
 			sales: (): string => `${Routes.dashboarSales}`,
 			orders: (): string => `${Routes.dashboarOrders}`

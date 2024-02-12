@@ -1,65 +1,59 @@
-<mat-selection-list class="flex flex-col">
-	<aside id="sidebar-multi-level-sidebar" aria-label="Sidebar">
-		<div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-			<ul class="space-y-2 font-medium">
-				@for(item of menu; track item.label){ @if(item.menu?.length){
-				<li>
-					<button
-						type="button"
-						class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						[attr.aria-controls]="item.href"
-						[attr.data-collapse-toggle]="item.href"
-					>
-						@if(item.icon){
-						<fa-icon [icon]="item.icon"></fa-icon>
-						}
-						<span
-							class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
-							>{{ item.label }}</span
-						>
-						<svg
-							class="w-3 h-3 ml-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 10 6"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="m1 1 4 4 4-4"
-							/>
-						</svg>
-					</button>
-					<ul [id]="item.href" class="hidden py-2 space-y-2">
-						@for(i of item.menu; track i.label){
-						<li>
-							<a
-								[routerLink]="i.href"
-								class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-								>@if(i.icon){
-								<fa-icon [icon]="item.icon" class="mr-2"></fa-icon>
-								}{{ i.label }}</a
-							>
-						</li>
-						}
-					</ul>
-				</li>
+<mat-nav-list
+	class="h-full w-72 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
+>
+	@for(item of menu; track item.label){ @if(!item.menu?.length){
+	<a
+		mat-list-item
+		class="text-gray-400 dark:text-white"
+		[routerLink]="item.href"
+	>
+		@if(item.icon){
+		<fa-icon
+			class="text-gray-400 dark:text-white mx-2"
+			[icon]="item.icon"
+		></fa-icon>
+		}
+		<span class="text-gray-400 dark:text-white">{{ item.label }}</span>
+	</a>
+	}@else{
+	<mat-expansion-panel
+		[class.mat-elevation-z0]="true"
+		class="bg-gray-50 dark:bg-gray-800"
+	>
+		<mat-expansion-panel-header
+			[class.mat-expanded]="46"
+			class="text-gray-400 dark:text-white"
+		>
+			@if(item.icon){
+			<fa-icon
+				class="text-gray-400 dark:text-white mx-2"
+				[icon]="item.icon"
+			></fa-icon>
+			}
+			{{ item.label }}
+		</mat-expansion-panel-header>
+		<mat-nav-list>
+			@for(i of item.menu; track i.label){
 
-				}@else{
-				<li>
-					<a
-						[routerLink]="item.href"
-						class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-					>
-						<span class="ms-3">{{ item.label }}</span>
-					</a>
-				</li>
-				} }
-			</ul>
-		</div>
-	</aside>
-	<mat-selection-list> </mat-selection-list
-></mat-selection-list>
+			<a mat-list-item [routerLink]="i.href">
+				@if(i.icon){
+				<fa-icon
+					class="text-gray-400 dark:text-white mx-2"
+					[icon]="i.icon"
+				></fa-icon>
+				}
+				<span class="text-gray-400 dark:text-white">{{ i.label }}</span>
+			</a>
+			}
+		</mat-nav-list>
+	</mat-expansion-panel>
+	}}
+</mat-nav-list>
+
+<!-- </mat-sidenav>
+	<mat-sidenav-content>
+		<router-outlet>
+			<div class="app-sidenav-content">Components open here</div>
+		</router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container> -->

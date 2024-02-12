@@ -11,17 +11,17 @@ import { Route } from './routes';
 export const MenuSidebar: Menu[] = [
 	{
 		label: 'Dashboard',
-		href: 'dashboard',
+		href: Route.admin.dashboard.sales(),
 		icon: faGauge,
 		menu: [
-			{
-				label: 'Ventas',
-				href: Route.admin.dashboard.sales()
-			},
-			{
-				label: 'Ordenes',
-				href: Route.admin.dashboard.orders()
-			}
+			// {
+			// 	label: 'Ventas',
+			// 	href: Route.admin.dashboard.sales()
+			// },
+			// {
+			// 	label: 'Ordenes',
+			// 	href: Route.admin.dashboard.orders()
+			// }
 		]
 	},
 	{
