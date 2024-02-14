@@ -7,22 +7,23 @@ import {
 	RouterStateSnapshot,
 	UrlTree
 } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { Route } from '../../shared/routes/routes';
-import { AuthenticationService } from '../services/authentication/authentication.service';
+import { PermissionService } from '../services/permission/permission.service';
 
-export const authGuard: CanActivateFn = async (
+export const authGuard: CanActivateFn = (
 	route: ActivatedRouteSnapshot,
 	state: RouterStateSnapshot
-): Promise<boolean | UrlTree> => {
+): Observable<boolean | UrlTree> | boolean | UrlTree => {
 	const router = inject(Router);
-	const authService = inject(AuthenticationService);
-	const isLoggedIn = await authService.isLoggedIn();
+	const permissionService = inject(PermissionService);
+	const isLoggedIn = permissionService.isAuthenticated;
 
-	// console.log('is logged', isLoggedIn);
-	if (!isLoggedIn) {
-		router.navigate([Route.login.root()]);
+	if (isLoggedIn) {
+		return true;
 	}
 
-	return true;
+	router.navigate([Route.login.root()], {});
+	return false;
 };

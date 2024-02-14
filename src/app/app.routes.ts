@@ -6,12 +6,12 @@ import { Route } from './shared/routes/routes';
 
 export const routes: Routes = [
 	{
-		path: '',
+		path: Route.root(),
 		redirectTo: `${Route.admin.default()}`,
 		pathMatch: 'full'
 	},
 	{
-		path: `${Route.login.root()}`,
+		path: Route.login.root(),
 		title: 'IMS | Login',
 		pathMatch: 'full',
 		loadComponent: () =>
@@ -21,7 +21,7 @@ export const routes: Routes = [
 			).then((module) => module.LoginComponent)
 	},
 	{
-		path: `${Route.admin.root()}`,
+		path: Route.admin.root(),
 		title: 'IMS | Admin Panel',
 		component: AdminLayoutComponent,
 		canActivate: [authGuard],
@@ -118,5 +118,5 @@ export const routes: Routes = [
 			}
 		]
 	},
-	{ path: '**', redirectTo: `${Route.login.root()}`, pathMatch: 'full' }
+	{ path: '**', redirectTo: Route.admin.default() }
 ];

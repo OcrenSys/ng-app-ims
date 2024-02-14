@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { UserCredential } from '@angular/fire/auth';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
 	faPaperPlane,
@@ -13,6 +15,7 @@ import {
 } from '../../../common/classes/forms/field.base';
 import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { FormControlService } from '../../../core/services/formControl/form-control.service';
+import { Route } from '../../routes/routes';
 import { FieldComponent } from '../../ui/field/field.component';
 import { LoadingComponent } from '../../ui/icons/loading';
 
@@ -37,7 +40,8 @@ export class SigninFormComponent implements OnInit {
 	protected icon: IconDefinition = faPaperPlane;
 
 	constructor(
-		private _formControlService: FormControlService,
+		private readonly _router: Router,
+		private readonly _formControlService: FormControlService,
 		private readonly _authenticationService: AuthenticationService
 	) {}
 
@@ -48,11 +52,19 @@ export class SigninFormComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		console.log(this.form.value);
 		this.loading = true;
-		this._authenticationService.signIn(
-			this.form.get('email')?.value,
-			this.form.get('password')?.value
-		);
+		this._authenticationService
+			.signIn(this.form.get('email')?.value, this.form.get('password')?.value)
+			.then((_user: UserCredential) => {
+				console.log(_user, Route.root());
+
+				if (_user) this._router.navigate([Route.root()]);
+			})
+			.catch((error) => {
+				console.error('Something went wrong with signin method...', error);
+			})
+			.finally(() => {
+				this.loading = false;
+			});
 	}
 }

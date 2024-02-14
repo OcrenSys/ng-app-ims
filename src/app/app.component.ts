@@ -1,9 +1,11 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import {
+	AfterViewInit,
 	ChangeDetectorRef,
 	Component,
 	OnDestroy,
+	OnInit,
 	signal,
 	WritableSignal
 } from '@angular/core';
@@ -15,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 
+// import { initFlowbite } from 'flowbite';
 import { BreadcrumbsComponent } from './shared/components/breadcrumbs/breadcrumbs.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { SideMenuComponent } from './shared/components/sidemenu/sidemenu.component';
@@ -40,7 +43,7 @@ import { SideMenuCompactComponent } from './shared/components/sidemenu-compact/s
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss', './app.component.css']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, OnInit, AfterViewInit {
 	protected device: WritableSignal<'mobile' | 'desktop'> = signal<
 		'mobile' | 'desktop'
 	>('desktop');
@@ -67,6 +70,15 @@ export class AppComponent implements OnDestroy {
 
 	protected closedStart(): void {
 		this.showMainDrawer.set(false);
+	}
+
+	ngOnInit(): void {
+		console.log('ngOnInit...');
+	}
+
+	ngAfterViewInit(): void {
+		console.log('ngAfterViewInit...');
+		// initFlowbite();
 	}
 
 	ngOnDestroy(): void {

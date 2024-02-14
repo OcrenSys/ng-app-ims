@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { ThemeService } from '../../../core/services/theme/theme.service';
+import { ThemeService } from '../../../../core/services/theme/theme.service';
 
 @Component({
 	selector: 'ims-toggle-theme',

@@ -1,4 +1,5 @@
 const Routes = {
+	root: '',
 	admin: 'admin',
 	login: 'login',
 
@@ -17,6 +18,7 @@ const Routes = {
 	preferencesSettings: 'preferences/settings'
 };
 export const Route = {
+	root: (): string => `${Route.root}`,
 	login: {
 		root: (): string => `${Route.login}`
 	},
