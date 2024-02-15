@@ -3,6 +3,7 @@ import {
 	Auth,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	signOut,
 	UserCredential
 } from '@angular/fire/auth';
 
@@ -12,15 +13,15 @@ import {
 export class AuthenticationService {
 	constructor(private readonly auth: Auth) {}
 
-	public signOut(): void {
-		this.auth.signOut();
+	public _signOut(): Promise<void> {
+		return signOut(this.auth);
 	}
 
-	public signIn(email: string, password: string): Promise<UserCredential> {
+	public _signIn(email: string, password: string): Promise<UserCredential> {
 		return signInWithEmailAndPassword(this.auth, email, password);
 	}
 
-	public signUp(email: string, password: string): Promise<UserCredential> {
+	public _signUp(email: string, password: string): Promise<UserCredential> {
 		return createUserWithEmailAndPassword(this.auth, email, password);
 	}
 }

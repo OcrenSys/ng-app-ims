@@ -1,8 +1,19 @@
+import {
+	AuthGuard,
+	AuthPipe,
+	redirectLoggedInTo,
+	redirectUnauthorizedTo
+} from '@angular/fire/auth-guard';
 import { Routes } from '@angular/router';
 
-import { authGuard } from './core/guards/auth.guard';
 import { AdminLayoutComponent } from './features/layouts/admin-layout/admin-layout.component';
 import { Route } from './shared/routes/routes';
+
+const redirectUnauthorizedToLogin = (): AuthPipe =>
+	redirectUnauthorizedTo([Route.login.root()]);
+
+const redirectLoggedInToAdmin = (): AuthPipe =>
+	redirectLoggedInTo([Route.admin.default()]);
 
 export const routes: Routes = [
 	{
@@ -14,6 +25,8 @@ export const routes: Routes = [
 		path: Route.login.root(),
 		title: 'IMS | Login',
 		pathMatch: 'full',
+		canActivate: [AuthGuard],
+		data: { authGuardPipe: redirectLoggedInToAdmin },
 		loadComponent: () =>
 			import(
 				/* webpackChunkName: "__Chunk__LoginComponent__" */
@@ -24,7 +37,8 @@ export const routes: Routes = [
 		path: Route.admin.root(),
 		title: 'IMS | Admin Panel',
 		component: AdminLayoutComponent,
-		canActivate: [authGuard],
+		canActivate: [AuthGuard],
+		data: { authGuardPipe: redirectUnauthorizedToLogin },
 		children: [
 			{
 				title: 'IMS | Dashboard - Sales',
@@ -118,5 +132,5 @@ export const routes: Routes = [
 			}
 		]
 	},
-	{ path: '**', redirectTo: Route.admin.default() }
+	{ path: '**', redirectTo: Route.login.root(), pathMatch: 'full' }
 ];

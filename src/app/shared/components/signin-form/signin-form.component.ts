@@ -54,14 +54,13 @@ export class SigninFormComponent implements OnInit {
 	onSubmit(): void {
 		this.loading = true;
 		this._authenticationService
-			.signIn(this.form.get('email')?.value, this.form.get('password')?.value)
+			._signIn(this.form.get('email')?.value, this.form.get('password')?.value)
 			.then((_user: UserCredential) => {
-				console.log(_user, Route.root());
-
 				if (_user) this._router.navigate([Route.root()]);
 			})
 			.catch((error) => {
 				console.error('Something went wrong with signin method...', error);
+				this._router.navigate([Route.login.root()]);
 			})
 			.finally(() => {
 				this.loading = false;
