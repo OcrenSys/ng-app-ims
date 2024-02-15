@@ -1,7 +1,16 @@
-import { Component, inject } from '@angular/core';
+import {
+	Component,
+	inject,
+	OnInit,
+	signal,
+	WritableSignal
+} from '@angular/core';
+import { UserCredential } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
+import { FirebaseStorage } from '../../../../common/constants/firebase.constants';
 import { AuthenticationService } from '../../../../core/services/authentication/authentication.service';
+import { StorageService } from '../../../../core/services/storage/storage.service';
 import { Route } from '../../../routes/routes';
 
 @Component({
@@ -11,18 +20,11 @@ import { Route } from '../../../routes/routes';
 	templateUrl: './dropdown-user.component.html',
 	styleUrl: './dropdown-user.component.sass'
 })
-export class DropdownUserComponent {
+export class DropdownUserComponent implements OnInit {
 	private readonly _authenticationService = inject(AuthenticationService);
 	private readonly _router = inject(Router);
+	private _storageService = inject(StorageService);
 
-	protected user = {
-		avatar:
-			'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg',
-		name: 'Jhon Doe',
-		username: 'Jhon',
-		email: 'jhondoe@gmail.com',
-		role: 'Admin'
-	};
 	protected menu = [
 		{
 			label: 'Dashboard',
@@ -44,8 +46,37 @@ export class DropdownUserComponent {
 			action: (): void => {
 				this._authenticationService
 					._signOut()
+					.then(() => {
+						this._storageService.setItem<UserCredential | undefined>(
+							FirebaseStorage.FIREBASE_USER,
+							undefined
+						);
+					})
 					.then(() => this._router.navigate([Route.login.root()]));
 			}
 		}
 	];
+	protected user: WritableSignal<UserCredential | undefined> =
+		signal(undefined);
+
+	ngOnInit(): void {
+		this.user.set(
+			this._storageService.getItem<UserCredential | undefined>(
+				FirebaseStorage.FIREBASE_USER
+			)
+		);
+	}
+
+	get avatar(): string {
+		const url = this.user()?.user.photoURL || '';
+		return url ? url : FirebaseStorage.AVATAR_URL;
+	}
+
+	get email(): string {
+		return this.user()?.user.email || '';
+	}
+
+	get username(): string {
+		return this.user()?.user.displayName || '';
+	}
 }

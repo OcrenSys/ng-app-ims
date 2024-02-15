@@ -10,7 +10,7 @@
 		<span class="sr-only">Open user menu</span>
 		<img
 			class="w-8 h-8 rounded-full ring-white ring-1"
-			[src]="user.avatar"
+			[src]="avatar"
 			alt="user photo"
 		/>
 	</button>
@@ -21,10 +21,10 @@
 	>
 		<div class="px-4 py-3 text-center">
 			<span class="block text-sm text-gray-900 dark:text-white">{{
-				user.username
+				username
 			}}</span>
 			<span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{
-				user.email
+				email
 			}}</span>
 		</div>
 		<ul class="py-2" aria-labelledby="user-menu-button">

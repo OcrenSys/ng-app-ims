@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
 	Auth,
 	createUserWithEmailAndPassword,
+	FacebookAuthProvider,
+	GoogleAuthProvider,
 	signInWithEmailAndPassword,
+	signInWithPopup,
 	signOut,
 	UserCredential
 } from '@angular/fire/auth';
@@ -11,17 +14,23 @@ import {
 	providedIn: 'root'
 })
 export class AuthenticationService {
-	constructor(private readonly auth: Auth) {}
+	private readonly _auth = inject(Auth);
+	private readonly _googleAuthProvider = new GoogleAuthProvider();
+	private readonly _facebookAuthProvider = new FacebookAuthProvider();
 
 	public _signOut(): Promise<void> {
-		return signOut(this.auth);
+		return signOut(this._auth);
 	}
 
 	public _signIn(email: string, password: string): Promise<UserCredential> {
-		return signInWithEmailAndPassword(this.auth, email, password);
+		return signInWithEmailAndPassword(this._auth, email, password);
+	}
+
+	public _signInGoogle(): Promise<UserCredential> {
+		return signInWithPopup(this._auth, this._googleAuthProvider);
 	}
 
 	public _signUp(email: string, password: string): Promise<UserCredential> {
-		return createUserWithEmailAndPassword(this.auth, email, password);
+		return createUserWithEmailAndPassword(this._auth, email, password);
 	}
 }
