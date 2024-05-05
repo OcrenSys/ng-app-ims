@@ -24,9 +24,9 @@
 
 	<div class="my-2">
 		<button
-			(click)="signInFacebook()"
+			(click)="signInWithFacebook()"
 			type="button"
-			class="w-full text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2"
+			class="w-full text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center hidden items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2"
 		>
 			@if(loading().facebook){<ims-loading />}@else{
 			<svg
@@ -45,7 +45,7 @@
 		</button>
 
 		<button
-			(click)="signInGoogle()"
+			(click)="signInWithGoogle()"
 			type="button"
 			class="w-full text-white bg-[#DB4437] hover:bg-[#DB4437]/90 focus:ring-4 focus:outline-none focus:ring-[#DB4437]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center dark:focus:ring-[#DB4437]/55 me-2 mb-2"
 		>

@@ -1,3 +1,4 @@
+import { FacebookAuthProvider, GoogleAuthProvider } from '@angular/fire/auth';
 import {
 	AuthGuard,
 	AuthPipe,
@@ -6,6 +7,10 @@ import {
 } from '@angular/fire/auth-guard';
 import { Routes } from '@angular/router';
 
+import { AuthenticationService } from './core/services/authentication/authentication.service';
+import { EmailAndPasswordStrategy } from './core/services/authentication/emailandpassword.strategy';
+import { FacebookStrategy } from './core/services/authentication/facebook.strategy';
+import { GoogleStrategy } from './core/services/authentication/google.strategy';
 import { AdminLayoutComponent } from './features/layouts/admin-layout/admin-layout.component';
 import { Route } from './shared/routes/routes';
 
@@ -27,6 +32,14 @@ export const routes: Routes = [
 		pathMatch: 'full',
 		canActivate: [AuthGuard],
 		data: { authGuardPipe: redirectLoggedInToAdmin },
+		providers: [
+			AuthenticationService,
+			GoogleAuthProvider,
+			FacebookAuthProvider,
+			GoogleStrategy,
+			FacebookStrategy,
+			EmailAndPasswordStrategy
+		],
 		loadComponent: () =>
 			import(
 				/* webpackChunkName: "__Chunk__LoginComponent__" */

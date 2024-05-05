@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
 	Component,
 	inject,
@@ -7,9 +6,7 @@ import {
 	signal,
 	WritableSignal
 } from '@angular/core';
-import { UserCredential } from '@angular/fire/auth';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
 	faPaperPlane,
@@ -20,118 +17,83 @@ import {
 	FieldBase,
 	FieldTypes
 } from '../../../common/classes/forms/field.base';
-import { FirebaseStorage } from '../../../common/constants/firebase.constants';
+import { Loading } from '../../../common/interfaces/loading';
 import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { FormControlService } from '../../../core/services/formControl/form-control.service';
-import { StorageService } from '../../../core/services/storage/storage.service';
-import { Route } from '../../routes/routes';
 import { FieldComponent } from '../../ui/field/field.component';
 import { LoadingComponent } from '../../ui/icons/loading';
 
-interface Loading {
-	email: boolean;
-	google: boolean;
-	facebook: boolean;
-}
 @Component({
 	selector: 'ims-singin-form',
 	standalone: true,
 	imports: [
-		CommonModule,
 		ReactiveFormsModule,
 		FieldComponent,
 		LoadingComponent,
 		FontAwesomeModule
 	],
-	providers: [FormControlService],
 	templateUrl: './signin-form.component.html',
 	styleUrl: './signin-form.component.sass'
 })
 export class SigninFormComponent implements OnInit {
 	@Input() fields: FieldBase<FieldTypes>[] | null = [];
 
-	private readonly _router = inject(Router);
 	private readonly _formControlService = inject(FormControlService);
-	private readonly _authenticationService = inject(AuthenticationService);
-	private readonly _storageService = inject(StorageService);
+	private readonly _authService = inject(AuthenticationService);
 
 	protected form!: FormGroup;
-	protected loading: WritableSignal<Loading> = signal<Loading>({
-		email: false,
-		google: false,
-		facebook: false
-	});
+	protected SigninMethod: WritableSignal<{
+		[key: string]: { method: string; loading: boolean };
+	}> = this._authService.SigninMethod();
 
 	get SendEmailIcon(): IconDefinition {
 		return faPaperPlane;
 	}
 
 	ngOnInit(): void {
+		this.onLoadFormControls();
+	}
+
+	private onLoadFormControls(): void {
 		this.form = this._formControlService.toFormGroup(
 			this.fields as FieldBase<FieldTypes>[]
 		);
 	}
 
-	onSubmit(): void {
-		this.loading.update((_data) => ({ ..._data, email: true }));
-		this._authenticationService
-			._signIn(this.form.get('email')?.value, this.form.get('password')?.value)
-			.then((_user: UserCredential) => {
-				if (_user) {
-					this._storageService.setItem<UserCredential>(
-						FirebaseStorage.FIREBASE_USER,
-						_user
-					);
-					this._router.navigate([Route.root()]);
-				}
-			})
-			.catch((error) => {
-				console.error('Something went wrong with signin method...', error);
-				this._storageService.setItem<UserCredential | undefined>(
-					FirebaseStorage.FIREBASE_USER,
-					undefined
-				);
-				this._router.navigate([Route.login.root()]);
-			})
-			.finally(() => {
-				this.loading.update((_data) => ({ ..._data, email: false }));
-			});
+	protected onSubmit(): void {
+		this.singninWithEmailAndPassword();
 	}
 
-	signInFacebook(): void {
-		this.loading.update((_data) => ({ ..._data, facebook: true }));
-		setTimeout(() => {
-			this.loading.update((_data) => ({ ..._data, facebook: false }));
-		}, 5000);
+	private singninWithEmailAndPassword(): void {
+		this._authService.setAuthenticationStrategy(
+			this._authService.EmailAndPassStrategy
+		);
+		this._authService._executeSigninMethod(
+			this._authService.authenticate({
+				email: this.form.get('email')?.value,
+				password: this.form.get('password')?.value
+			}),
+			this._authService.SigninMethod()['email'].method
+		);
 	}
 
-	signInGoogle(): void {
-		this.loading.update((_data) => ({ ..._data, google: true }));
+	protected signInWithFacebook(): void {
+		this._authService.setAuthenticationStrategy(
+			this._authService.FacebookStrategy
+		);
+		this._authService._executeSigninMethod(
+			this._authService.authenticate(),
+			this._authService.SigninMethod()['facebook'].method
+		);
+	}
 
-		this._authenticationService
-			._signInGoogle()
-			.then((_user: UserCredential) => {
-				if (_user) {
-					this._storageService.setItem<UserCredential>(
-						FirebaseStorage.FIREBASE_USER,
-						_user
-					);
-					this._router.navigate([Route.root()]);
-				}
-			})
-			.catch((error) => {
-				console.error(
-					'Something went wrong with GOOGLE signin method...',
-					error
-				);
-				this._storageService.setItem<UserCredential | undefined>(
-					FirebaseStorage.FIREBASE_USER,
-					undefined
-				);
-				this._router.navigate([Route.login.root()]);
-			})
-			.finally(() => {
-				this.loading.update((_data) => ({ ..._data, google: false }));
-			});
+	protected signInWithGoogle(): void {
+		this._authService.setAuthenticationStrategy(
+			this._authService.GoogleStrategy
+		);
+		this._authService._executeSigninMethod(
+			this._authService.authenticate(),
+			this._authService.SigninMethod()['google'].method
+		);
 	}
 }
