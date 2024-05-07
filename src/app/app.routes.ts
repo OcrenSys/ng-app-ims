@@ -1,4 +1,8 @@
-import { FacebookAuthProvider, GoogleAuthProvider } from '@angular/fire/auth';
+import {
+	EmailAuthProvider,
+	FacebookAuthProvider,
+	GoogleAuthProvider
+} from '@angular/fire/auth';
 import {
 	AuthGuard,
 	AuthPipe,
@@ -36,6 +40,7 @@ export const routes: Routes = [
 			AuthenticationService,
 			GoogleAuthProvider,
 			FacebookAuthProvider,
+			EmailAuthProvider,
 			GoogleStrategy,
 			FacebookStrategy,
 			EmailAndPasswordStrategy
@@ -51,6 +56,15 @@ export const routes: Routes = [
 		title: 'IMS | Admin Panel',
 		component: AdminLayoutComponent,
 		canActivate: [AuthGuard],
+		providers: [
+			AuthenticationService,
+			GoogleAuthProvider,
+			FacebookAuthProvider,
+			EmailAuthProvider,
+			GoogleStrategy,
+			FacebookStrategy,
+			EmailAndPasswordStrategy
+		],
 		data: { authGuardPipe: redirectUnauthorizedToLogin },
 		children: [
 			{

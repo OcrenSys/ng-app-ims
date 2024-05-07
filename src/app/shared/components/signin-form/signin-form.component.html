@@ -10,9 +10,9 @@
 			type="submit"
 			class="my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
 		>
-			@if(loading().email){<ims-loading />}
-			{{ loading().email ? 'Sending...' : 'Send' }}
-			@if(!loading().email){
+			@if(loadingEmail){<ims-loading />}
+			{{ loadingEmail ? 'Sending...' : 'Send' }}
+			@if(!loadingEmail){
 			<fa-icon
 				class="ml-2 text-white dark:text-gray-400"
 				[icon]="SendEmailIcon"
@@ -28,7 +28,7 @@
 			type="button"
 			class="w-full text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center hidden items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2"
 		>
-			@if(loading().facebook){<ims-loading />}@else{
+			@if(loadingFacebook){<ims-loading />}@else{
 			<svg
 				class="w-4 h-4 me-2"
 				aria-hidden="true"
@@ -49,7 +49,7 @@
 			type="button"
 			class="w-full text-white bg-[#DB4437] hover:bg-[#DB4437]/90 focus:ring-4 focus:outline-none focus:ring-[#DB4437]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center dark:focus:ring-[#DB4437]/55 me-2 mb-2"
 		>
-			@if(loading().google){<ims-loading />}@else{
+			@if(loadingGoogle){<ims-loading />}@else{
 			<svg
 				class="w-4 h-4 me-2"
 				aria-hidden="true"

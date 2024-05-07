@@ -1,11 +1,4 @@
-import {
-	Component,
-	inject,
-	Input,
-	OnInit,
-	signal,
-	WritableSignal
-} from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -17,7 +10,6 @@ import {
 	FieldBase,
 	FieldTypes
 } from '../../../common/classes/forms/field.base';
-import { Loading } from '../../../common/interfaces/loading';
 import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { FormControlService } from '../../../core/services/formControl/form-control.service';
 import { FieldComponent } from '../../ui/field/field.component';
@@ -39,12 +31,20 @@ export class SigninFormComponent implements OnInit {
 	@Input() fields: FieldBase<FieldTypes>[] | null = [];
 
 	private readonly _formControlService = inject(FormControlService);
-	private readonly _authService = inject(AuthenticationService);
-
+	protected readonly _authService = inject(AuthenticationService);
 	protected form!: FormGroup;
-	protected SigninMethod: WritableSignal<{
-		[key: string]: { method: string; loading: boolean };
-	}> = this._authService.SigninMethod();
+
+	protected get loadingGoogle(): boolean {
+		return this._authService.SigninMethod()['google']?.loading || false;
+	}
+
+	protected get loadingFacebook(): boolean {
+		return this._authService.SigninMethod()['facebook']?.loading || false;
+	}
+
+	protected get loadingEmail(): boolean {
+		return this._authService.SigninMethod()['email']?.loading || false;
+	}
 
 	get SendEmailIcon(): IconDefinition {
 		return faPaperPlane;
