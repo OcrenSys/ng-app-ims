@@ -70,6 +70,9 @@
 				},
 				"serve": {
 					"builder": "@ngx-env/builder:dev-server",
+					"options": {
+						"proxyConfig": "./proxy.conf.json"
+					},
 					"configurations": {
 						"production": {
 							"buildTarget": "ng-app-ims:build:production"
@@ -110,9 +113,7 @@
 		}
 	},
 	"cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ],
-    "analytics": "9e434cf3-d26e-43f0-addd-b7220156b90c"
+		"schematicCollections": ["@angular-eslint/schematics"],
+		"analytics": "9e434cf3-d26e-43f0-addd-b7220156b90c"
 	}
 }
