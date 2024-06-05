@@ -41,6 +41,15 @@ export const routes: Routes = [
 		data: { authGuardPipe: redirectUnauthorizedToLogin },
 		children: [
 			{
+				title: 'IMS | Dashboard - Banners',
+				path: Route.admin.dashboard.banners(),
+				loadComponent: () =>
+					import(
+						/* webpackChunkName: "__Chunk__SalesComponent__" */
+						'./features/admin/dashboards/banners/banners.component'
+					).then((module) => module.BannersComponent)
+			},
+			{
 				title: 'IMS | Dashboard - Sales',
 				path: Route.admin.dashboard.sales(),
 				loadComponent: () =>
