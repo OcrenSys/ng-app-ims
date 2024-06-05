@@ -1,4 +1,6 @@
 export const environment = {
+	server_url: import.meta.env.IMS_SERVER_URL,
+	api: import.meta.env.IMS_SERVER_API,
 	firebase: {
 		apiKey: import.meta.env.IMS_FIREBASE_API_KEY,
 		authDomain: import.meta.env.IMS_FIREBASE_AUTH_DOMAIN,

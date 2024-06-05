@@ -66,19 +66,26 @@ export class AuthenticationService {
 		}));
 
 		authentication
-			.then((_user: UserCredential) => {
-				if (_user) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			.then((_userCredential: any) => {
+				if (_userCredential) {
 					this._storageService.setItem<UserCredential>(
-						FirebaseStorage.FIREBASE_USER,
-						_user
+						FirebaseStorage.FIREBASE_USER_CREDENTIAL,
+						_userCredential as UserCredential
 					);
+
+					this._storageService.setItem<UserCredential>(
+						FirebaseStorage.ACCESS_TOKEN,
+						_userCredential.user.accessToken ?? ''
+					);
+
 					this._router.navigate([Route.root()]);
 				}
 			})
 			.catch((error) => {
 				console.error(`Something went wrong with ${key} signin...`, error);
 				this._storageService.setItem<UserCredential | undefined>(
-					FirebaseStorage.FIREBASE_USER,
+					FirebaseStorage.FIREBASE_USER_CREDENTIAL,
 					undefined
 				);
 				this.SigninMethod.update((_data) => ({

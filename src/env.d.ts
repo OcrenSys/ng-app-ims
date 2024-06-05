@@ -19,6 +19,9 @@ interface ImportMetaEnv {
   readonly IMS_FIREBASE_APP_ID: string;
   readonly IMS_FIREBASE_MEASUREMENT_ID: string;
 
+  readonly IMS_SERVER_URL: string;
+  readonly IMS_SERVER_API: string;
+
 }
 
 /*
