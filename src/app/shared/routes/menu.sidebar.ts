@@ -5,23 +5,23 @@ import {
 	faGear
 } from '@fortawesome/free-solid-svg-icons';
 
-import { Menu } from '../../common/types/menu.type';
+import { Menu } from '../../common/types/menu/menu.type';
 import { Route } from './routes';
 
 export const MenuSidebar: Menu[] = [
 	{
 		label: 'Dashboard',
-		href: 'dashboard',
+		href: Route.admin.dashboard.sales(),
 		icon: faGauge,
 		menu: [
-			{
-				label: 'Ventas',
-				href: Route.admin.dashboard.sales()
-			},
-			{
-				label: 'Ordenes',
-				href: Route.admin.dashboard.orders()
-			}
+			// {
+			// 	label: 'Ventas',
+			// 	href: Route.admin.dashboard.sales()
+			// },
+			// {
+			// 	label: 'Ordenes',
+			// 	href: Route.admin.dashboard.orders()
+			// }
 		]
 	},
 	{

@@ -1,3 +1,4 @@
+@import 'flowbite';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +11,7 @@
 
 *::-webkit-scrollbar {
 	width: 4px;
+	height: 4px;
 }
 
 *::-webkit-scrollbar-track {

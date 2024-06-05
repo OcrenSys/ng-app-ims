@@ -1,0 +1,59 @@
+<mat-nav-list
+	class="h-full w-72 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
+>
+	@for(item of menu; track item.label){ @if(!item.menu?.length){
+	<a
+		mat-list-item
+		class="text-gray-400 dark:text-white"
+		[routerLink]="item.href"
+	>
+		@if(item.icon){
+		<fa-icon
+			class="text-gray-400 dark:text-white mx-2"
+			[icon]="item.icon"
+		></fa-icon>
+		}
+		<span class="text-gray-400 dark:text-white">{{ item.label }}</span>
+	</a>
+	}@else{
+	<mat-expansion-panel
+		[class.mat-elevation-z0]="true"
+		class="bg-gray-50 dark:bg-gray-800"
+	>
+		<mat-expansion-panel-header
+			[class.mat-expanded]="46"
+			class="text-gray-400 dark:text-white"
+		>
+			@if(item.icon){
+			<fa-icon
+				class="text-gray-400 dark:text-white mx-2"
+				[icon]="item.icon"
+			></fa-icon>
+			}
+			{{ item.label }}
+		</mat-expansion-panel-header>
+		<mat-nav-list>
+			@for(i of item.menu; track i.label){
+
+			<a mat-list-item [routerLink]="i.href">
+				@if(i.icon){
+				<fa-icon
+					class="text-gray-400 dark:text-white mx-2"
+					[icon]="i.icon"
+				></fa-icon>
+				}
+				<span class="text-gray-400 dark:text-white">{{ i.label }}</span>
+			</a>
+			}
+		</mat-nav-list>
+	</mat-expansion-panel>
+	}}
+</mat-nav-list>
+
+<!-- </mat-sidenav>
+	<mat-sidenav-content>
+		<router-outlet>
+			<div class="app-sidenav-content">Components open here</div>
+		</router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container> -->

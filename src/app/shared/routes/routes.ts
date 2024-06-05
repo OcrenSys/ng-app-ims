@@ -1,4 +1,8 @@
 const Routes = {
+	root: '',
+	admin: 'admin',
+	login: 'login',
+
 	dashboarSales: 'dashboard/sales',
 	dashboarOrders: 'dashboard/orders',
 
@@ -14,7 +18,13 @@ const Routes = {
 	preferencesSettings: 'preferences/settings'
 };
 export const Route = {
+	root: (): string => `${Route.root}`,
+	login: {
+		root: (): string => `${Route.login}`
+	},
 	admin: {
+		root: (): string => Routes.admin,
+		default: (): string => `${Routes.admin}/${Routes.dashboarSales}`,
 		dashboard: {
 			sales: (): string => `${Routes.dashboarSales}`,
 			orders: (): string => `${Routes.dashboarOrders}`
@@ -43,10 +53,5 @@ export const Route = {
 			users: (): string => `${Routes.preferencesUsers}`,
 			settings: (): string => `${Routes.preferencesSettings}`
 		}
-	},
-	gues: {
-		welcome: (): string => `/welcome`
-	},
-
-	login: (): string => `/login`
+	}
 };

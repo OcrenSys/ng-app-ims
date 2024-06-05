@@ -1,0 +1,21 @@
+<div class="h-screen w-screen gap-0 grid grid-cols-5">
+	<section
+		class="col-span-2 shadows flex flex-col mx-auto min-w-72 max-w-96 py-4"
+	>
+		<div class="w-full mt-8 flex flex-col items-center">
+			<ims-logotipo />
+
+			<h1 class="text-sm font-semibold text-gray-800 my-1">
+				Welcome to IMS software
+			</h1>
+			<p class="text-xs font-medium text-gray-600">
+				Sign in to continue to IMS.
+			</p>
+		</div>
+
+		<ims-singin-form [fields]="fields$ | async" />
+	</section>
+	<section
+		class="col-span-3 w-full h-full bg-gray-100 bg-right bg-no-repeat bg-[url('/assets/customer.jpg')] bg-blend-multiply"
+	></section>
+</div>

@@ -15,10 +15,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 
-import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
-import { SideMenuCompactComponent } from './components/sidemenu-compact/sidemenu-compact.component';
+import { BreadcrumbsComponent } from './shared/components/breadcrumbs/breadcrumbs.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { SideMenuComponent } from './shared/components/sidemenu/sidemenu.component';
+import { SideMenuCompactComponent } from './shared/components/sidemenu-compact/sidemenu-compact.component';
 
 @Component({
 	selector: 'ims-root',
