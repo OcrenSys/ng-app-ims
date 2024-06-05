@@ -48,7 +48,7 @@ export class DropdownUserComponent implements OnInit {
 					._signOut()
 					.then(() => {
 						this._storageService.setItem<UserCredential | undefined>(
-							FirebaseStorage.FIREBASE_USER,
+							FirebaseStorage.FIREBASE_USER_CREDENTIAL,
 							undefined
 						);
 					})
@@ -62,21 +62,21 @@ export class DropdownUserComponent implements OnInit {
 	ngOnInit(): void {
 		this.user.set(
 			this._storageService.getItem<UserCredential | undefined>(
-				FirebaseStorage.FIREBASE_USER
+				FirebaseStorage.FIREBASE_USER_CREDENTIAL
 			)
 		);
 	}
 
 	get avatar(): string {
-		const url = this.user()?.user.photoURL || '';
+		const url = this.user()?.user?.photoURL || '';
 		return url ? url : FirebaseStorage.AVATAR_URL;
 	}
 
 	get email(): string {
-		return this.user()?.user.email || '';
+		return this.user()?.user?.email || '';
 	}
 
 	get username(): string {
-		return this.user()?.user.displayName || '';
+		return this.user()?.user?.displayName || '';
 	}
 }
