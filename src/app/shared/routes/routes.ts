@@ -5,6 +5,7 @@ const Routes = {
 
 	dashboarSales: 'dashboard/sales',
 	dashboarOrders: 'dashboard/orders',
+	dashboarBanners: 'dashboard/banners',
 
 	inventoryProducts: 'inventory/products',
 	inventoryServices: 'inventory/services',
@@ -24,8 +25,9 @@ export const Route = {
 	},
 	admin: {
 		root: (): string => Routes.admin,
-		default: (): string => `${Routes.admin}/${Routes.dashboarSales}`,
+		default: (): string => `${Routes.admin}/${Routes.dashboarBanners}`,
 		dashboard: {
+			banners: (): string => `${Routes.dashboarBanners}`,
 			sales: (): string => `${Routes.dashboarSales}`,
 			orders: (): string => `${Routes.dashboarOrders}`
 		},

@@ -14,14 +14,18 @@ export const MenuSidebar: Menu[] = [
 		href: Route.admin.dashboard.sales(),
 		icon: faGauge,
 		menu: [
-			// {
-			// 	label: 'Ventas',
-			// 	href: Route.admin.dashboard.sales()
-			// },
-			// {
-			// 	label: 'Ordenes',
-			// 	href: Route.admin.dashboard.orders()
-			// }
+			{
+				label: 'Banners',
+				href: Route.admin.dashboard.banners()
+			},
+			{
+				label: 'Ventas',
+				href: Route.admin.dashboard.sales()
+			},
+			{
+				label: 'Ordenes',
+				href: Route.admin.dashboard.orders()
+			}
 		]
 	},
 	{
