@@ -74,7 +74,7 @@ export class AuthenticationService {
 						_userCredential as UserCredential
 					);
 
-					this._storageService.setItem<UserCredential>(
+					this._storageService.setItem<string>(
 						FirebaseStorage.ACCESS_TOKEN,
 						_userCredential.user.accessToken ?? ''
 					);
