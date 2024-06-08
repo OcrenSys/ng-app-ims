@@ -6,57 +6,93 @@ import {
 	HttpRequest
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 
 import { FirebaseStorage } from '../../../common/constants/firebase.constants';
 import { RefreshTokenService } from '../authentication/refresh.token.service';
 import { StorageService } from '../storage/storage.service';
 
 export const ApiInterceptor: HttpInterceptorFn = (
-	req: HttpRequest<unknown>,
-	next: HttpHandlerFn
+	_httpRequest: HttpRequest<unknown>,
+	_httpHandler: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-	const _refreshTokenService: RefreshTokenService = inject(RefreshTokenService);
 	const _storageService: StorageService = inject(StorageService);
+	const _refreshTokenService: RefreshTokenService = inject(RefreshTokenService);
 
-	let _req: HttpRequest<unknown> = req;
+	let __httpRequestClone: HttpRequest<unknown> = _httpRequest;
 	const _accessToken: string =
 		_storageService.getItem<string>(FirebaseStorage.ACCESS_TOKEN) ?? '';
 
 	if (_accessToken)
-		_req = req.clone({
+		__httpRequestClone = _httpRequest.clone({
 			setHeaders: {
 				Authorization: `Bearer ${_accessToken ?? ''}`
 			}
 		});
 
-	return next(_req).pipe(
+	return HttpHandler(
+		__httpRequestClone,
+		_httpHandler,
+		_storageService,
+		_refreshTokenService
+	);
+};
+
+const HttpHandler = (
+	_req: HttpRequest<unknown>,
+	_next: HttpHandlerFn,
+	_storageService: StorageService,
+	_refreshTokenService: RefreshTokenService
+): Observable<HttpEvent<unknown>> => {
+	return _next(_req).pipe(
 		tap((event: HttpEvent<unknown>) => {
 			if (event.type === HttpEventType.Response) {
-				console.log(req.url, 'returned a response', event);
+				console.log(_req.url, 'returned a response', event);
 			}
 		}),
 		catchError((error) => {
-			let _req = req;
+			console.log('HttpHandler, error...', error);
 
-			if (error.status === 403) {
-				_refreshTokenService.getRefreshToken().subscribe({
-					next: (_accessToken) => {
-						console.log('new access_token...');
+			if (error.status === 403)
+				return VerifyToken(_req, _next, _storageService, _refreshTokenService);
 
-						if (_accessToken)
-							_req = req.clone({
-								setHeaders: {
-									Authorization: `Bearer ${_accessToken ?? ''}`
-								}
-							});
-					},
-					error: () => {},
-					complete: () => {
-						ApiInterceptor(_req, next);
+			return throwError(error);
+		})
+	);
+};
+
+const VerifyToken = (
+	_req: HttpRequest<unknown>,
+	_next: HttpHandlerFn,
+	_storageService: StorageService,
+	_refreshTokenService: RefreshTokenService
+): Observable<HttpEvent<unknown>> => {
+	let __httpRequestClone = _req;
+
+	return _refreshTokenService.verifyIdToken()?.pipe(
+		switchMap((_newAccessToken: string) => {
+			if (_newAccessToken) {
+				_storageService.setItem<string>(
+					FirebaseStorage.ACCESS_TOKEN,
+					_newAccessToken ?? ''
+				);
+
+				__httpRequestClone = _req.clone({
+					setHeaders: {
+						Authorization: `Bearer ${_newAccessToken ?? ''}`
 					}
 				});
 			}
+
+			return HttpHandler(
+				__httpRequestClone,
+				_next,
+				_storageService,
+				_refreshTokenService
+			);
+		}),
+		catchError((error: unknown) => {
+			console.log('VerifyToken, error...', error);
 			return throwError(error);
 		})
 	);
