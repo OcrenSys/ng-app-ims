@@ -1,0 +1,59 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+	<!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+	<!-- Position Column -->
+	<ng-container matColumnDef="image">
+		<th mat-header-cell *matHeaderCellDef>Imagen</th>
+		<td mat-cell *matCellDef="let element">
+			<img
+				class="rounded-md shadow w-20 h-10 object-cover"
+				[src]="element?.image?.url"
+				[alt]="'image'"
+			/>
+		</td>
+	</ng-container>
+	<!-- Position Column -->
+	<ng-container matColumnDef="name">
+		<th mat-header-cell *matHeaderCellDef>Nombre</th>
+		<td mat-cell *matCellDef="let element">{{ element.name }}</td>
+	</ng-container>
+
+	<!-- Name Column -->
+	<ng-container matColumnDef="description">
+		<th mat-header-cell *matHeaderCellDef>Descripcion</th>
+		<td mat-cell *matCellDef="let element">{{ element.description }}</td>
+	</ng-container>
+
+	<!-- Weight Column -->
+	<ng-container matColumnDef="createAt">
+		<th mat-header-cell *matHeaderCellDef>Creado</th>
+		<td mat-cell *matCellDef="let element">
+			{{ element.createAt | date : 'dd/mm/yyyy' }}
+		</td>
+	</ng-container>
+
+	<!-- Symbol Column -->
+	<ng-container matColumnDef="updateAt">
+		<th mat-header-cell *matHeaderCellDef>Actualizado</th>
+		<td mat-cell *matCellDef="let element">
+			{{ element.updateAt | date : 'dd/mm/yyyy' }}
+		</td>
+	</ng-container>
+	<!-- Symbol Column -->
+	<ng-container matColumnDef="isActive">
+		<th mat-header-cell *matHeaderCellDef>Activo</th>
+		<td mat-cell *matCellDef="let element">
+			<mat-checkbox
+				[checked]="element.isActive"
+				[color]="'primary'"
+				[disableRipple]="true"
+				(click)="$event.preventDefault()"
+			>
+			</mat-checkbox>
+		</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
