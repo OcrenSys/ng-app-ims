@@ -6,12 +6,21 @@ import {
 	HttpRequest
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
+import {
+	catchError,
+	Observable,
+	shareReplay,
+	switchMap,
+	tap,
+	throwError
+} from 'rxjs';
 
 import { FirebaseStorage } from '../../../common/constants/firebase.constants';
 import { RefreshTokenService } from '../authentication/refresh.token.service';
 import { StorageService } from '../storage/storage.service';
 
+const MAX_REQUESTs = 3;
+let requestCount = 0;
 export const ApiInterceptor: HttpInterceptorFn = (
 	_httpRequest: HttpRequest<unknown>,
 	_httpHandler: HttpHandlerFn
@@ -70,6 +79,7 @@ const VerifyToken = (
 	let __httpRequestClone = _req;
 
 	return _refreshTokenService.verifyIdToken()?.pipe(
+		shareReplay(MAX_REQUESTs),
 		switchMap((_newAccessToken: string) => {
 			if (_newAccessToken) {
 				_storageService.setItem<string>(
@@ -84,12 +94,19 @@ const VerifyToken = (
 				});
 			}
 
-			return HttpHandler(
-				__httpRequestClone,
-				_next,
-				_storageService,
-				_refreshTokenService
-			);
+			if (requestCount <= MAX_REQUESTs) {
+				requestCount++;
+				return HttpHandler(
+					__httpRequestClone,
+					_next,
+					_storageService,
+					_refreshTokenService
+				);
+			} else {
+				// Reset count after max retries
+				requestCount = 0;
+				return _next(__httpRequestClone);
+			}
 		}),
 		catchError((error: unknown) => {
 			console.log('VerifyToken, error...', error);
